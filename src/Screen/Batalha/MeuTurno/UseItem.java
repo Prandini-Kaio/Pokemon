@@ -20,7 +20,7 @@ public class UseItem {
             new UsePokebola(enemyPokemon);
         }else if(option == 2)
         {
-            System.out.println("Pocoes");
+            new UsePotion(friendlyPokemon);
         }else
         {
             System.out.println("Opcao invalida");
