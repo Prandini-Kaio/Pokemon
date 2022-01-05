@@ -1,0 +1,9 @@
+Pokemon
+    - Ataques
+        .Atacar     VV
+        .Efeitos
+        .Dano       VV
+        .Dinamico
+Telas
+    - Menu principal - Loop
+    - Tela para cada interação
