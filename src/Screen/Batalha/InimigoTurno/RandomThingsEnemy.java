@@ -22,7 +22,7 @@ public class RandomThingsEnemy {
                 newStrike = new Punch();
             }else if(rand == 1)
             {
-                newStrike = new Fire();
+                newStrike = new Punch();
             }
         }
 

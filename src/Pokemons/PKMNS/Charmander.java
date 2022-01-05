@@ -7,91 +7,117 @@ import Pokemons.Strikes.*;
 
 public class Charmander implements Pokemon{
 
+    private String namePokemon;
+    private String surnamePokemon;
 
-    private String name;
-    private String surname;
     private int currentLife;
     private int maxLife = 100;
-    private List<Strike> lStrikes;
+
+    private List<Strike> listStrike;
     private Strike currentStrike;
 
-    public Charmander()
+    private Rarity rarity;
+    
+    private float captureChance;
+
+    public Charmander(Rarity raridade)
     {
-        this.name = "Charmander";
-        this.currentLife = this.maxLife;
+        this.currentLife = maxLife;
         this.currentStrike = new Punch();
+        this.namePokemon = "Bulbassaur";
+        this.rarity = raridade;
 
-        if(surname == null)
+        if(surnamePokemon == null)
         {
-            this.surname = name;
+            surnamePokemon = namePokemon;
         }
-    }
-
-
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return name;
-    }
-
-    @Override
-    public String getSurname() {
-        // TODO Auto-generated method stub
-        return surname;
-    }
-
-    @Override
-    public void setSurname(String surname) {
-        // TODO Auto-generated method stub
-        this.surname = surname;
+        switch(rarity)
+        {
+            case Comum:
+                this.captureChance = 50;
+                break;
+            case Incomum:
+                this.captureChance = 35;
+                break;
+            case Raro:
+                this.captureChance = 15;
+                break;
+        }
     }
 
     @Override
     public int getCurrentLife() {
-        // TODO Auto-generated method stub
         return currentLife;
     }
 
     @Override
     public void setCurrentLife(int life) {
-        // TODO Auto-generated method stub
         this.currentLife = life;
     }
 
     @Override
     public int getMaxLife() {
-        // TODO Auto-generated method stub
         return maxLife;
     }
 
     @Override
     public void setMaxLife(int maxLife) {
-        // TODO Auto-generated method stub
         this.maxLife = maxLife;
     }
 
     @Override
     public Strike getCurrentStrike() {
-        // TODO Auto-generated method stub
         return currentStrike;
     }
 
     @Override
     public void setCurrentStrike(Strike currentStrike) {
-        // TODO Auto-generated method stub
         this.currentStrike = currentStrike;
     }
 
     @Override
     public List<Strike> getListStrikes() {
-        // TODO Auto-generated method stub
-        return lStrikes;
+        return listStrike;
     }
 
     @Override
     public void setListStrikes(List<Strike> strikeList) {
-        // TODO Auto-generated method stub
-        this.lStrikes = strikeList;
+        this.listStrike = strikeList;
+    }
+
+    @Override
+    public String getName() {
+        return namePokemon;
+    }
+
+    @Override
+    public String getSurname() {
+        return surnamePokemon;
+    }
+
+    @Override
+    public void setSurname(String surname) {
+        this.surnamePokemon = surname;
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return this.rarity;
+    }
+
+    @Override
+    public void setRarity(Rarity raridade) {
+        this.rarity = raridade;
+    }
+
+    @Override
+    public float getCaptureChance() {
+        return this.captureChance;
+    }
+
+    @Override
+    public void setCaptureChance(float captureChance) {
+        this.captureChance = captureChance;
     }
     
 }

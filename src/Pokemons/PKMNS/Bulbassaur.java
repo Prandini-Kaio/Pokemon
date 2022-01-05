@@ -16,15 +16,32 @@ public class Bulbassaur implements Pokemon{
     private List<Strike> listStrike;
     private Strike currentStrike;
 
-    public Bulbassaur()
+    private Rarity rarity;
+    
+    private float captureChance;
+
+    public Bulbassaur(Rarity raridade)
     {
         this.currentLife = maxLife;
         this.currentStrike = new Punch();
         this.namePokemon = "Bulbassaur";
+        this.rarity = raridade;
 
         if(surnamePokemon == null)
         {
             surnamePokemon = namePokemon;
+        }
+        switch(rarity)
+        {
+            case Comum:
+                this.captureChance = 50;
+                break;
+            case Incomum:
+                this.captureChance = 35;
+                break;
+            case Raro:
+                this.captureChance = 15;
+                break;
         }
     }
 
@@ -81,5 +98,25 @@ public class Bulbassaur implements Pokemon{
     @Override
     public void setSurname(String surname) {
         this.surnamePokemon = surname;
+    }
+
+    @Override
+    public Rarity getRarity() {
+        return this.rarity;
+    }
+
+    @Override
+    public void setRarity(Rarity raridade) {
+        this.rarity = raridade;
+    }
+
+    @Override
+    public float getCaptureChance() {
+        return this.captureChance;
+    }
+
+    @Override
+    public void setCaptureChance(float captureChance) {
+        this.captureChance = captureChance;
     }
 }

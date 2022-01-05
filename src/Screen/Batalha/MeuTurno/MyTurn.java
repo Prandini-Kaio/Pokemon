@@ -10,7 +10,7 @@ public class MyTurn {
     public MyTurn(Pokemon myPokemon, Pokemon enemyPokemon)
     {
         System.out.println("O que deseja fazer?");
-        System.out.println("1 - Atacar 2 - Mudar Pokemon 3 - Fugir");
+        System.out.println("1 - Atacar 2 - Mudar Pokemon 3 - Bag 4 - Fugir");
 
         int op = scanner.nextInt();
 
@@ -23,6 +23,7 @@ public class MyTurn {
                 new ChangePokemon();
                 break;
             case 3:
+                new UseItem(myPokemon, enemyPokemon);
                 break;
         }
         return;
