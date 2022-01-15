@@ -1,8 +1,7 @@
 package Inventario;
 import java.util.*;
 
-import Pocoes.Potion;
-import Pocoes.PotionComum;
+import Pocoes.*;
 import Pokebola.*;
 import Pokemons.*;
 import Pokemons.PKMNS.*;
@@ -46,14 +45,14 @@ public class Bag {
         //Pokebola
         Pokebola pokebola = new PokebolaComum();
 
-        pokebola.setAmount(10);
+        pokebola.setAmount(1);
         listPokebola.add(pokebola);
         currentPokebola = pokebola;
 
         //Potion
-        Potion potion = new PotionComum();
+        Potion potion = new PotionIncomum();
 
-        potion.setAmount(10);
+        potion.setAmount(1);
         listPotions.add(potion);
         currentPotion = potion;
     }

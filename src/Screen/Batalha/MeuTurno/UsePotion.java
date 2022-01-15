@@ -24,10 +24,17 @@ public class UsePotion {
 
         try
         {
-            Bag.getBag().setCurrentPotion(Bag.getBag().getListPotions().get(option));
-            Bag.getBag().getCurrentPotion().curar(healPokemon);
-            System.out.println("Seu pokemon recuperou " + Bag.getBag().getCurrentPotion().getHeal() + " de vida.");
-            System.out.println("Sua vida agora e " + healPokemon.getCurrentLife());
+            if(Bag.getBag().getCurrentPotion().getAmount() > 0)
+            {
+                Bag.getBag().setCurrentPotion(Bag.getBag().getListPotions().get(option));
+                Bag.getBag().getCurrentPotion().curar(healPokemon);
+                System.out.println("Seu pokemon recuperou " + Bag.getBag().getCurrentPotion().getHeal() + " de vida.");
+                System.out.println("Sua vida agora e " + healPokemon.getCurrentLife());
+                Bag.getBag().getCurrentPotion().setAmount(Bag.getBag().getCurrentPotion().getAmount() - 1);
+            }else
+            {
+                System.out.println("Não ha pocoes suficientes");
+            }
         }catch(Exception e)
         {
             System.out.println(e);
