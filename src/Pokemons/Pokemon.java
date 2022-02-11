@@ -36,6 +36,21 @@ public interface Pokemon {
     public float getCaptureChance();
     public void setCaptureChance(float captureChance);
 
+    public default void setStrike(int index)
+    {
+        setCurrentStrike(getListStrikes().get(index));
+        System.out.println("Seu golpe atual é: " + getCurrentStrike().getNameStrike());
+    }
+    
+    public default void showStrikes()
+    {
+        for(int i = 0; i < getListStrikes().size(); i++)
+        {
+            System.out.println(i + " - " + getListStrikes().get(i).getNameStrike());
+            System.out.println("    - Damage: " + getListStrikes().get(i).getDamageStrike());
+        }
+    }
+
     public default void atacar(Pokemon receivingPokemon)
     {
         try{

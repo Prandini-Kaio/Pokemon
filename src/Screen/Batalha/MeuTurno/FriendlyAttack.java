@@ -11,17 +11,12 @@ public class FriendlyAttack {
     public FriendlyAttack(Pokemon myPokemon, Pokemon enemyPokemon)
     {
         System.out.println("Qual golpe deseja usar?");
-        for(int i = 0; i < myPokemon.getListStrikes().size(); i++)
-        {
-            System.out.println(i + " - " + myPokemon.getListStrikes().get(i).getNameStrike());
-            System.out.println("    - Damage: " + myPokemon.getListStrikes().get(i).getDamageStrike());
-        }
+        myPokemon.showStrikes();
         
         int op = scanner.nextInt();
 
         try{
-            myPokemon.setCurrentStrike(myPokemon.getListStrikes().get(op));
-            System.out.println("O golpe escolhido foi: " + myPokemon.getListStrikes().get(op).getNameStrike());
+            myPokemon.setStrike(op);
             myPokemon.atacar(enemyPokemon);
             System.out.println("A vida de " + enemyPokemon.getName() + " agora é de " + enemyPokemon.getCurrentLife());
         }catch(Exception e)
