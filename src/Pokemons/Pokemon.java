@@ -1,7 +1,6 @@
 package Pokemons;
 
 import java.util.*;
-
 import Pokemons.Strikes.Strike;
 
 public interface Pokemon {
