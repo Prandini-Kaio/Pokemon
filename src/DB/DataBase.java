@@ -7,5 +7,8 @@ import Pokemons.Pokemon;
 
 public interface DataBase
 {
-    public void savePokemon(Pokemon pokemon);
+    public long insertPokemon(Pokemon pokemon);
+    public int getPokemonData(long id);
+    public long updatePokemon(Pokemon pokemon);
+    public long deletePokemon(long id);
 }

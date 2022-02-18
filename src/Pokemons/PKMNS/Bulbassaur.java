@@ -7,6 +7,8 @@ import Pokemons.Strikes.*;
 
 public class Bulbassaur implements Pokemon{
 
+    private long id;
+
     private String namePokemon;
     private String surnamePokemon;
 
@@ -88,6 +90,16 @@ public class Bulbassaur implements Pokemon{
     @Override
     public String getName() {
         return namePokemon;
+    }
+
+    @Override
+    public long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

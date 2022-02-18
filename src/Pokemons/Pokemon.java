@@ -14,6 +14,9 @@ public interface Pokemon {
 
     public String getName();
 
+    public long getId();
+    public void setId(long id);
+
     public String getSurname();
     public void setSurname(String surname);
 

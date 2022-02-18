@@ -10,117 +10,103 @@ import java.sql.*;
 
 public class SQLDB implements DataBase
 {
-    private String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=123";
+    private String url = "jdbc:postgresql://localhost/postgres";
+    private String user = "postgres";
+    private String pass = "123";
 
+    public static void main(String[] args) {
+        DataBase db = new SQLDB();
 
-    public SQLDB() throws SQLException {
-        SQLDB sqldb = this;
+        Pokemon pokemon = new Bulbassaur(Pokemon.Rarity.Comum);
+        pokemon.setSurname("TESTE");
 
-        Pokemon p1 = new Bulbassaur(Pokemon.Rarity.Comum);
-        p1.setCurrentLife(1);
+        //db.insertPokemon(pokemon);
 
-        sqldb.savePokemon(p1);
-        sqldb.selectTable();
-    }
-
-    public int updateName(int id, String name)
-    {
-        //Query de comando POSTGRES SQL
-        String query = "UPDATE pokemon "
-                + "SET name_pokemon = ? "
-                + "WHERE id_pokemon = ?";
-        //Colunas afetadas pelo comando
-        int affectedRows = 0;
-
-        try(Connection connection = connection();
-        PreparedStatement pstmt = connection.prepareStatement(query))
-        {
-
-            pstmt .setString(1, name);
-            pstmt.setInt(2, id);
-
-            affectedRows = pstmt.executeUpdate();
-
-        }catch (SQLException e)
-        {
-            System.out.println("Conexao falhou");
-            System.out.println(e.getMessage());
-        }
-
-        return affectedRows;
-    }
-
-    public int updateLife(int id, int currentLife)
-    {
-        //Query de comando POSTGRES SQL
-        String query = "UPDATE pokemon "
-                + "SET currentLife = ? "
-                + "WHERE id_pokemon = ?";
-        //Colunas afetadas pelo comando
-        int affectedRows = 0;
-
-        try(Connection connection = connection();
-            PreparedStatement pstmt = connection.prepareStatement(query))
-        {
-
-            pstmt .setInt(1, currentLife);
-            pstmt.setInt(2, id);
-
-            affectedRows = pstmt.executeUpdate();
-
-        }catch (SQLException e)
-        {
-            System.out.println("Conexao falhou");
-            System.out.println(e.getMessage());
-        }
-
-        return affectedRows;
-    }
-
-    void selectTable()
-    {
-
-        String query = "SELECT * FROM pokemon";
-
-        try {
-
-            Statement statement = connection().createStatement();
-
-            ResultSet rs = statement.executeQuery(query);
-
-            while(rs.next())
-            {
-                int id = rs.getInt("id_pokemon");
-                int id_pokebola = rs.getInt("id_pokebola");
-                String name = rs.getString("name_pokemon");
-                String surname = rs.getString("surname_pokemon");
-                int currentLife = rs.getInt("currentLife");
-                int maxLife = rs.getInt("maxLife");
-
-
-                System.out.printf("ID: %d\nID PKBL: %d\nName: %s\nSurname: %s\nCurrentLife: %d\nMaxLife: %d\n-------\n\n", id,
-                        id_pokebola, name, surname, currentLife, maxLife);
-            }
-            rs.close();
-            statement.close();
-            connection().close();
-        }catch (SQLException e)
-        {
-            System.out.println("Conexao falhou");
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @Override
-    public void savePokemon(Pokemon pokemon) {
-
-
-
-        System.out.printf("Rows afected: %d\nRows afected: %d\n", updateName(1, pokemon.getName()),
-                updateLife(1, pokemon.getCurrentLife()));
+        db.getPokemonData(2);
     }
 
     public Connection connection() throws SQLException {
-        return DriverManager.getConnection(url);
+        return DriverManager.getConnection(url, user, pass);
+    }
+
+    @java.lang.Override
+    public long insertPokemon(Pokemon pokemon) {
+        StringBuilder query = new StringBuilder();
+
+        query.append("INSERT INTO pokemon(name_pokemon, surname_pokemon)")
+        .append("VALUES(?,?)");
+
+        long id = 0;
+
+        try(Connection conn = connection();
+            PreparedStatement ps = conn.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS))
+        {
+            ps.setString(1, pokemon.getName());
+            ps.setString(2, pokemon.getSurname());
+
+            System.out.println("Connection sucessfull");
+
+            int affectedRows = ps.executeUpdate();
+
+            if(affectedRows > 0)
+            {
+                try(ResultSet rs = ps.getGeneratedKeys())
+                {
+                    if(rs.next())
+                    {
+                        id = rs.getLong(1);
+                        pokemon.setId(id);
+                        System.out.println(pokemon.getId());
+                    }
+                }catch (SQLException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
+        return id;
+    }
+
+    @Override
+    public int getPokemonData(long id) {
+        String query = "SELECT * FROM pokemon WHERE id_pokemon = ?";
+
+        int affectedRows = 0;
+
+        try(Connection connection = connection())
+        {
+            PreparedStatement st = connection.prepareStatement(query);
+
+            st.setLong(1, id);
+
+            System.out.println("Connection sucessfull");
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next())
+            {
+                System.out.printf("Id: %d\nName: %s\nElement: %s\n\n", rs.getInt("id_pokemon"),
+                        rs.getString("name_pokemon"), rs.getString("element_pokemon"));
+            }
+        }catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
+        return affectedRows;
+    }
+
+    @Override
+    public long updatePokemon(Pokemon pokemon) {
+        String query = "UPDATE ";
+        return 0;
+    }
+
+    @Override
+    public long deletePokemon(long id) {
+        return 0;
     }
 }
